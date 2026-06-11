@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CareerConnect Preview</title>
+  <style>
+    :root{--bg:#f8fafc;--ink:#0f172a;--muted:#64748b;--card:rgba(255,255,255,.72);--line:rgba(255,255,255,.45);--blue:#2563eb;--purple:#7c3aed;--cyan:#06b6d4}
+    .dark{--bg:#020617;--ink:#fff;--muted:#cbd5e1;--card:rgba(15,23,42,.72);--line:rgba(255,255,255,.14)}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,sans-serif;background:radial-gradient(circle at top left,rgba(37,99,235,.24),transparent 32%),radial-gradient(circle at top right,rgba(124,58,237,.18),transparent 32%),var(--bg);color:var(--ink)}a{color:inherit;text-decoration:none}
+    .nav{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,4vw,48px);border-bottom:1px solid var(--line);background:rgba(255,255,255,.55);backdrop-filter:blur(20px)}.dark .nav{background:rgba(2,6,23,.65)}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:21px}.mark{display:grid;place-items:center;width:42px;height:42px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--purple),var(--cyan));color:white}
+    .links{display:flex;gap:6px;flex-wrap:wrap}.links button,.theme{border:0;border-radius:999px;padding:10px 14px;background:transparent;color:var(--muted);font-weight:800;cursor:pointer}.links button.active,.theme{background:var(--ink);color:var(--bg)}
+    .wrap{max-width:1180px;margin:auto;padding:34px clamp(16px,4vw,48px)}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;min-height:calc(100vh - 84px)}h1{font-size:clamp(42px,7vw,78px);line-height:1;margin:14px 0;font-weight:950}h2{font-size:clamp(26px,4vw,38px);margin:0 0 18px;font-weight:950}h3{margin:0 0 8px;font-weight:900}.eyebrow{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:9px 14px;background:var(--card);color:var(--blue);font-weight:900}.muted{color:var(--muted);line-height:1.7}
+    .glass{border:1px solid var(--line);border-radius:24px;background:var(--card);backdrop-filter:blur(22px);box-shadow:0 24px 80px rgba(37,99,235,.16)}.card{padding:22px}.grid{display:grid;gap:18px}.stats{grid-template-columns:repeat(3,1fr)}.cards{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr 1fr}.dash{grid-template-columns:260px 1fr;align-items:start}.side{position:sticky;top:90px;padding:12px}.side button{display:block;width:100%;border:0;border-radius:14px;background:transparent;color:var(--muted);padding:13px 14px;text-align:left;font-weight:900;cursor:pointer}.side button.active{background:linear-gradient(90deg,var(--blue),var(--purple));color:white}
+    .search{display:grid;grid-template-columns:1fr 190px auto;gap:10px;padding:12px}input,select,textarea{width:100%;min-height:48px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.64);padding:0 14px;color:var(--ink);outline:0}.dark input,.dark select,.dark textarea{background:rgba(2,6,23,.55)}textarea{padding-top:12px}.btn{border:0;border-radius:14px;background:linear-gradient(90deg,var(--blue),var(--purple));color:white;padding:13px 18px;font-weight:950;cursor:pointer}.btn.secondary{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+    .badge{display:inline-flex;border-radius:999px;padding:7px 10px;background:rgba(6,182,212,.15);color:#0891b2;font-size:12px;font-weight:900;margin:3px}.logo{display:grid;place-items:center;width:52px;height:52px;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:white;font-weight:950}.row{display:flex;gap:14px;align-items:flex-start;justify-content:space-between}.bar{height:12px;background:rgba(148,163,184,.28);border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--purple),var(--cyan))}
+    .kanban{grid-template-columns:repeat(5,1fr)}.col{min-height:260px}.mini{padding:14px;border-radius:18px;background:rgba(255,255,255,.45);margin:10px 0}.dark .mini{background:rgba(255,255,255,.08)}footer{border-top:1px solid var(--line);padding:34px clamp(16px,4vw,48px);color:var(--muted)}
+    @media(max-width:900px){.hero,.dash,.two{grid-template-columns:1fr}.stats,.cards,.kanban{grid-template-columns:1fr 1fr}.side{position:static}.search{grid-template-columns:1fr}.links{display:none}}
+    @media(max-width:560px){.stats,.cards,.kanban{grid-template-columns:1fr}.row{flex-direction:column}.nav{align-items:flex-start}.theme{align-self:flex-end}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="#landing"><span class="mark">CC</span>CareerConnect</a>
+    <div class="links" id="toplinks"></div>
+    <button class="theme" onclick="toggleTheme()">Dark Mode</button>
+  </nav>
+  <main id="app"></main>
+  <footer>
+    <b>CareerConnect</b>
+    <p>About Us - Contact - Privacy Policy - Terms & Conditions - LinkedIn - Twitter - GitHub</p>
+  </footer>
+  <script>
+    const jobs=[
+      ["Frontend Developer","NovaTech","Bengaluru","Hybrid","12-18 LPA",["React","Tailwind","TypeScript"]],
+      ["Product Analyst","FinEdge","Mumbai","Remote","10-14 LPA",["SQL","Python","Dashboards"]],
+      ["UX Designer","PixelForge","Delhi NCR","Remote","6-9 LPA",["Figma","Research","Prototyping"]],
+      ["Backend Engineer","HealthSync","Hyderabad","Hybrid","14-22 LPA",["Node.js","PostgreSQL","APIs"]]
+    ];
+    const internships=[
+      ["React Intern","NovaTech","6 months","25k/month",["React","CSS","Git"]],
+      ["Data Science Intern","FinEdge","4 months","30k/month",["Python","ML","SQL"]],
+      ["UI Design Intern","PixelForge","3 months","18k/month",["Figma","UX","Wireframes"]]
+    ];
+    const companies=["NovaTech","PixelForge","FinEdge","HealthSync"];
+    const nav=[["Landing","landing"],["Login","auth"],["Dashboard","dashboard"],["Jobs","jobs"],["Internships","internships"],["Resume","resume"],["Tracker","tracker"],["Profile","profile"],["Companies","companies"],["Notifications","notifications"]];
+    const app=document.getElementById("app"), links=document.getElementById("toplinks");
+    links.innerHTML=nav.map(n=>`<button onclick="go('${n[1]}')" data-page="${n[1]}">${n[0]}</button>`).join("");
+    function toggleTheme(){document.body.classList.toggle("dark")}
+    function go(page){location.hash=page}
+    function badges(list){return list.map(x=>`<span class="badge">${x}</span>`).join("")}
+    function search(){return `<div class="glass search"><input placeholder="Search jobs, skills, companies"><input placeholder="Location"><button class="btn">Search</button></div>`}
+    function jobCard(j){return `<article class="glass card"><div class="row"><div class="row"><div class="logo">${j[1].slice(0,2)}</div><div><h3>${j[0]}</h3><p class="muted">${j[1]} - ${j[2]} - ${j[3]}</p></div></div><button class="btn secondary">Save</button></div><p class="muted">Build high quality career products with modern tools and cross-functional teams.</p>${badges(j[5])}<div class="row"><b>${j[4]}</b><button class="btn" onclick="alert('Application modal submitted')">Apply</button></div></article>`}
+    function internshipCard(i){return `<article class="glass card"><h3>${i[0]}</h3><p class="muted">${i[1]} - ${i[2]} - ${i[3]}</p>${badges(i[4])}<button class="btn" style="width:100%;margin-top:14px">Apply Now</button></article>`}
+    function landing(){return `<section class="wrap hero"><div><span class="eyebrow">Student careers, organized beautifully</span><h1>Find Your Dream Job & Internship</h1><p class="muted">Search curated roles, track applications, analyze resumes, and discover companies that match your skills.</p>${search()}<p><button class="btn" onclick="go('jobs')">Find Jobs</button> <button class="btn secondary" onclick="go('resume')">Upload Resume</button></p></div><div class="glass card">${jobs.slice(0,3).map(jobCard).join("")}</div></section><section class="wrap grid stats">${["12,480 Jobs Available","4,920 Internships Available","86K+ Registered Students"].map(x=>`<div class="glass card"><h2>${x.split(" ")[0]}</h2><p class="muted">${x.replace(x.split(" ")[0],"")}</p></div>`).join("")}</section><section class="wrap"><h2>Featured companies</h2><div class="grid cards">${companies.map(c=>`<div class="glass card"><div class="logo">${c.slice(0,2)}</div><h3>${c}</h3><p class="muted">Actively hiring - open positions available</p></div>`).join("")}</div></section>`}
+    function auth(){return `<section class="wrap hero"><div><span class="eyebrow">CareerConnect access</span><h1>Welcome back</h1><p class="muted">Login, signup, forgot password, Google and LinkedIn social login layouts are included.</p></div><div class="glass card"><h2>Login</h2><input placeholder="Email"><br><br><input placeholder="Password" type="password"><br><br><button class="btn">Login</button><br><br><button class="btn secondary">G Google</button> <button class="btn secondary">LinkedIn</button><p class="muted">Forgot password? Create account?</p></div></section>`}
+    function shell(title,body){return `<section class="wrap dash"><aside class="glass side">${nav.slice(2).map(n=>`<button onclick="go('${n[1]}')" data-page="${n[1]}">${n[0]}</button>`).join("")}</aside><div><span class="eyebrow">Career workspace</span><h2>${title}</h2>${body}</div></section>`}
+    function dashboard(){return shell("Student Dashboard",`<div class="grid stats"><div class="glass card"><h3>Profile completion</h3><div class="bar"><span style="width:82%"></span></div></div><div class="glass card"><h3>Recommended jobs</h3><h2>24</h2></div><div class="glass card"><h3>Saved jobs</h3><h2>9</h2></div></div><br><div class="grid two"><div>${jobs.slice(0,2).map(jobCard).join("")}</div><div class="glass card"><h3>Notifications</h3><p class="muted">Application updates, job alerts, and interview reminders.</p></div></div>`)}
+    function jobsPage(){return shell("Job Search",`${search()}<br><div class="grid two"><div class="glass card"><h3>Filters</h3>${["Full-time","Part-time","Internship","Remote","Hybrid"].map(x=>`<label><input type="checkbox"> ${x}</label><br>`).join("")}<br><select><option>Newest</option><option>Salary</option><option>Relevance</option></select></div><div class="grid">${jobs.map(jobCard).join("")}</div></div>`)}
+    function internshipsPage(){return shell("Internships",`${search()}<br><div class="grid cards">${internships.map(internshipCard).join("")}</div>`)}
+    function resume(){return shell("Resume Analyzer",`<div class="grid two"><div class="glass card"><h2>Upload resume</h2><p class="muted">Drop PDF or DOCX here.</p><button class="btn">Choose File</button></div><div class="glass card"><h2>ATS Score Card</h2><div class="bar"><span style="width:78%"></span></div><p>${badges(["Missing: TypeScript","Testing","GraphQL"])}</p></div></div><br><h3>Matching Jobs</h3><div class="grid two">${jobs.slice(0,2).map(jobCard).join("")}</div>`)}
+    function tracker(){return shell("Application Tracker",`<div class="grid kanban">${["Applied","Under Review","Interview Scheduled","Selected","Rejected"].map(c=>`<div class="glass card col"><h3>${c}</h3><div class="mini"><b>Frontend Developer</b><p class="muted">NovaTech</p></div></div>`).join("")}</div>`)}
+    function profile(){return shell("Profile",`<div class="glass card"><h2>Aarav Mehta</h2><p class="muted">Computer Science Student - Pune, India</p><div class="bar"><span style="width:82%"></span></div><p>${badges(["React","JavaScript","Python","SQL","Figma"])}</p><button class="btn">Edit Profile</button> <button class="btn secondary">Upload Resume</button></div>`)}
+    function companiesPage(){return shell("Companies",`${search()}<br><div class="grid cards">${companies.map(c=>`<div class="glass card"><div class="logo">${c.slice(0,2)}</div><h3>${c}</h3><p class="muted">Company profile - open positions - hiring status</p><button class="btn">View roles</button></div>`).join("")}</div>`)}
+    function notifications(){return shell("Notifications",`<div class="grid">${["Application update","New job alert","Interview reminder","Resume tip"].map(x=>`<div class="glass card"><h3>${x}</h3><p class="muted">CareerConnect notification with latest activity and reminders.</p></div>`).join("")}</div>`)}
+    function render(){const page=(location.hash||"#landing").slice(1);document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));app.innerHTML=({landing,auth,dashboard,jobs:jobsPage,internships:internshipsPage,resume,tracker,profile,companies:companiesPage,notifications}[page]||landing)()}
+    addEventListener("hashchange",render);render();
+  </script>
+</body>
+</html>
